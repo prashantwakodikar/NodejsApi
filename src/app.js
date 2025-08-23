@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
 const {errorHandler} = require("./middlewares/error");
+const {Auth} = require("./middlewares/auth");
 
-app.post("/user", (req, res) => {
+app.post("/user", Auth, (req, res) => {
     res.send("This save users data");
 });
 
