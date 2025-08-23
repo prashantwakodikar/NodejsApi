@@ -2,17 +2,28 @@ const express = require('express');
 
 const app = express();
 
+// app.use("/user", (req, res, next)=>{
+//     // res.send("Hahahaha");
+//     next();
+// });
 
-app.use("/admin", (req, res) =>{
-    res.send("This is admin page");
+
+app.post("/user", (req, res)=>{
+    res.send("This save users data");
 });
 
-app.use("/home",(req, res) =>{
-    res.send("This is home page");
+app.get("/user/:username/:password", (req, res)=>{
+    // Read Query string from URL 
+    // const data = req.query;
+
+    // Read Params from URL
+    const data = req.params;
+    console.log(data);
+    res.send(data);
 });
 
-app.use("/",(req, res) =>{
-    res.send("This is wild card route");
+app.delete("/user", (req, res)=>{
+    res.send("This will delete users data")
 });
 
 
