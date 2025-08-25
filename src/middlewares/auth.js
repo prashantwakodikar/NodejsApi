@@ -1,15 +1,12 @@
-const Auth = (req, res, next) =>{
-    console.log("Validate if user is authenticated or not");
-    
-    const token = "123";
-    const isAuthenticated = token==="abc";
-    if(isAuthenticated){
+const Auth = (req, res, next)=>{
+    // console.log("validate token");
+    const token ="xyz";
+    const isAuthenitcate = token === "xyz"
+    if(isAuthenitcate){
         next();
     }else{
-        res.status(401).send("Unauthorise request");
+        res.status(401).send("Unauthorised");
     }
 }
 
-module.exports = {
-    Auth
-}
+module.exports = Auth;

@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
+const {dbConnect} = require("./configs/db");
 const {errorHandler} = require("./middlewares/error");
-const {Auth} = require("./middlewares/auth");
+const Auth = require("./middlewares/Auth");
 
 app.post("/user", Auth, (req, res) => {
     res.send("This save users data");
@@ -21,15 +22,11 @@ app.get("/user", (req, res) => {
 });
 
 //Global Error Handler
-
-// app.use((err, req, res, next) => {
-//     if (err) {
-//         res.send("Global error handler - Something went wrong!!");
-//     }
-// });
-
 app.use(errorHandler);
 
-app.listen("3000", () => {
-    console.log("server is up and running");
+// Start Express server only after DB connection
+dbConnect().then( ()=>{
+    app.listen("3000", () => {
+        console.log("server is up and running");
+    });
 });
