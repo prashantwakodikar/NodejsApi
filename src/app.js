@@ -3,18 +3,30 @@ const app = express();
 const {dbConnect} = require("./configs/db");
 const {errorHandler} = require("./middlewares/error");
 const Auth = require("./middlewares/Auth");
+const User = require("./models/user");
 
-app.post("/user", Auth, (req, res) => {
-    res.send("This save users data");
+app.use(express.json());
+
+app.post("/user", Auth, async (req, res) => {
+    try {
+        const userData = new User(req.body);
+        await userData.save(); 
+        res.send("Saved users data, check DB");
+    } catch (error) {
+        console.error("Unable to save user data");
+        res.status(400).send(error.message);
+    }
+    
 });
 
-app.get("/user", (req, res) => {
+app.get("/user", async (req, res) => {
     // try {
-        const userId = req.query.userId;
-        if (!userId) {
-            throw new Error("user id not sent");
-        }
-        res.send("Got the userid and will user data");
+        // const userId = req.query.userId;
+        // if (!userId) {
+        //     throw new Error("user id not sent");
+        // }
+        const userList = await User.find({});
+        res.send(userList);
     // } catch (error) {
     //     res.status(500).send(error.message);
     // }
@@ -25,7 +37,9 @@ app.get("/user", (req, res) => {
 app.use(errorHandler);
 
 // Start Express server only after DB connection
-dbConnect().then( ()=>{
+dbConnect().then( async ()=>{
+    await User.init();
+    console.log("Indexes is created");
     app.listen("3000", () => {
         console.log("server is up and running");
     });
