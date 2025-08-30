@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 
 async function dbConnect(){
     try {
-        const URL = "mongodb+srv://wakodikarprashant:Test123@cluster0.swgomhv.mongodb.net/TestDB"
-        await mongoose.connect(URL);
+        const db_connection_url = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_URL}/TestDB`;
+        // console.log("db_connection_url",db_connection_url);
+        await mongoose.connect(db_connection_url);
         console.log('✅ MongoDB connected');
     } catch (error) {
         console.error('❌ MongoDB connection error:', error);

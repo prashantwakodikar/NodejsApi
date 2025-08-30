@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+require('dotenv').config();
+
 const {dbConnect} = require("./configs/db");
 const {errorHandler} = require("./middlewares/error");
 const Auth = require("./middlewares/Auth");
