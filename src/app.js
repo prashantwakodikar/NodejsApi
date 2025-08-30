@@ -16,7 +16,10 @@ app.post("/user", Auth, async (req, res) => {
         res.send("Saved users data, check DB");
     } catch (error) {
         console.error("Unable to save user data");
-        res.status(400).send(error.message);
+        res.status(400).json({
+            httpCode: 400,
+            message: error.message
+        });
     }
     
 });

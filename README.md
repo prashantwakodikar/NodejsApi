@@ -11,6 +11,7 @@
 - Add schema validation
 - Add email id unique validation
 - Add custom validation 
+
 - Add Validation library 
 - Add encryption for password field - bycrpt
 - Add JWT token authentication
