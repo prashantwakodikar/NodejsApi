@@ -9,14 +9,22 @@ const User = require("./models/user");
 
 app.use(express.json());
 
-app.post("/user", Auth, async (req, res) => {
+
+app.post("/signup", Auth, async (req, res) => {
     try {
         const userData = new User(req.body);
-        await userData.save(); 
-        res.send("Saved users data, check DB");
+        const updatedUserInfo = await userData.save(); 
+        // console.log(updatedUserInfo);
+        // return res.send("User info saved successfully");
+        return res.status(200).json({
+            httpCode: 200,
+            message:"User info saved successfully",
+            data:updatedUserInfo
+        });
+        // console.info("Is this line getting executed !!");
     } catch (error) {
-        console.error("Unable to save user data");
-        res.status(400).json({
+        // console.error("Unble to login due to some error message");
+        return res.status(400).json({
             httpCode: 400,
             message: error.message
         });

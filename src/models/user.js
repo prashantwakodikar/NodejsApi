@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validatorLib = require("validator");
 
 const UserSchema = new mongoose.Schema({
     firstName:{
@@ -23,7 +24,13 @@ const UserSchema = new mongoose.Schema({
         required:true,
         lowercase:true,
         trim:true,
-        unique:[true, "Duplicate Email Id is not allowed"]
+        unique:[true, "Duplicate Email Id is not allowed"],
+        validate:{
+            validator:function(v){
+                return validatorLib.isEmail(v);
+            },
+            message: props => `${props.value} is invalid email id.`
+        }
     },
     age:{
         type:Number
@@ -34,6 +41,16 @@ const UserSchema = new mongoose.Schema({
         enum:{
             values:["male", "female"],
             message:'{VALUE} is not supported'
+        }
+    },
+    password:{
+        type:String,
+        required:true,
+        validate:{
+            validator:function (v){
+                return validatorLib.isStrongPassword(v)
+            },
+            message:props =>`${props.value} is not strong password!!`
         }
     }
 

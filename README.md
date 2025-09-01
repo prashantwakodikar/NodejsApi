@@ -12,8 +12,9 @@
 - Add email id unique validation
 - Add custom validation 
 
-- Add Validation library 
+- Add Validation library = NOT ADDED yet 
+
 - Add encryption for password field - bycrpt
 - Add JWT token authentication
 - Add schema methods 
-
+- Add pre save hook 
