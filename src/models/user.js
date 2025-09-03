@@ -19,18 +19,18 @@ const UserSchema = new mongoose.Schema({
         match:[/^[a-zA-Z0-9]+$/, "Special character is not allowed"],
         trim:true
     },
-    email:{
+    emailId:{
         type:String,
         required:true,
         lowercase:true,
         trim:true,
-        unique:[true, "Duplicate Email Id is not allowed"],
-        validate:{
-            validator:function(v){
-                return validatorLib.isEmail(v);
-            },
-            message: props => `${props.value} is invalid email id.`
-        }
+        // unique:[true, "Duplicate Email Id is not allowed"],
+        // validate:{
+        //     validator:function(v){
+        //         return validatorLib.isEmail(v);
+        //     },
+        //     message: props => `${props.value} is invalid email id.`
+        // }
     },
     age:{
         type:Number
